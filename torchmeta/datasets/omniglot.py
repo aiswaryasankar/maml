@@ -11,8 +11,8 @@ from torchmeta.datasets.utils import get_asset
 
 class Omniglot(CombinationMetaDataset):
     """
-    The Omniglot dataset [1]. A dataset of 1623 handwritten characters from 
-    50 different alphabets. 
+    The Omniglot dataset [1]. A dataset of 1623 handwritten characters from
+    50 different alphabets.
 
     Parameters
     ----------
@@ -20,75 +20,75 @@ class Omniglot(CombinationMetaDataset):
         Root directory where the dataset folder `omniglot` exists.
 
     num_classes_per_task : int
-        Number of classes per tasks. This corresponds to "N" in "N-way" 
+        Number of classes per tasks. This corresponds to "N" in "N-way"
         classification.
 
     meta_train : bool (default: `False`)
         Use the meta-train split of the dataset. If set to `True`, then the
-        arguments `meta_val` and `meta_test` must be set to `False`. Exactly one 
+        arguments `meta_val` and `meta_test` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_val : bool (default: `False`)
-        Use the meta-validation split of the dataset. If set to `True`, then the 
-        arguments `meta_train` and `meta_test` must be set to `False`. Exactly one 
+        Use the meta-validation split of the dataset. If set to `True`, then the
+        arguments `meta_train` and `meta_test` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_test : bool (default: `False`)
-        Use the meta-test split of the dataset. If set to `True`, then the 
-        arguments `meta_train` and `meta_val` must be set to `False`. Exactly one 
+        Use the meta-test split of the dataset. If set to `True`, then the
+        arguments `meta_train` and `meta_val` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_split : string in {'train', 'val', 'test'}, optional
-        Name of the split to use. This overrides the arguments `meta_train`, 
+        Name of the split to use. This overrides the arguments `meta_train`,
         `meta_val` and `meta_test` if all three are set to `False`.
 
     use_vinyals_split : bool (default: `True`)
-        If set to `True`, the dataset uses the splits defined in [3]. If `False`, 
-        then the meta-train split corresponds to `images_background`, and the 
-        meta-test split corresponds to `images_evaluation` (raises an error when 
+        If set to `True`, the dataset uses the splits defined in [3]. If `False`,
+        then the meta-train split corresponds to `images_background`, and the
+        meta-test split corresponds to `images_evaluation` (raises an error when
         calling the meta-validation split).
 
     transform : callable, optional
-        A function/transform that takes a `PIL` image, and returns a transformed 
+        A function/transform that takes a `PIL` image, and returns a transformed
         version. See also `torchvision.transforms`.
 
     target_transform : callable, optional
-        A function/transform that takes a target, and returns a transformed 
+        A function/transform that takes a target, and returns a transformed
         version. See also `torchvision.transforms`.
 
     dataset_transform : callable, optional
-        A function/transform that takes a dataset (ie. a task), and returns a 
+        A function/transform that takes a dataset (ie. a task), and returns a
         transformed version of it. E.g. `torchmeta.transforms.ClassSplitter()`.
 
     class_augmentations : list of callable, optional
-        A list of functions that augment the dataset with new classes. These classes 
+        A list of functions that augment the dataset with new classes. These classes
         are transformations of existing classes. E.g.
         `torchmeta.transforms.HorizontalFlip()`.
 
     download : bool (default: `False`)
-        If `True`, downloads the zip files and processes the dataset in the root 
-        directory (under the `omniglot` folder). If the dataset is already 
+        If `True`, downloads the zip files and processes the dataset in the root
+        directory (under the `omniglot` folder). If the dataset is already
         available, this does not download/process the dataset again.
 
     Notes
     -----
     The dataset is downloaded from the original [Omniglot repository]
-    (https://github.com/brendenlake/omniglot). The meta train/validation/test 
+    (https://github.com/brendenlake/omniglot). The meta train/validation/test
     splits used in [3] are taken from [this repository]
-    (https://github.com/jakesnell/prototypical-networks). These splits are 
+    (https://github.com/jakesnell/prototypical-networks). These splits are
     over 1028/172/423 classes (characters).
 
     References
     ----------
-    .. [1] Lake, B. M., Salakhutdinov, R., and Tenenbaum, J. B. (2015). Human-level 
-           concept learning through probabilistic program induction. Science, 350(6266), 
+    .. [1] Lake, B. M., Salakhutdinov, R., and Tenenbaum, J. B. (2015). Human-level
+           concept learning through probabilistic program induction. Science, 350(6266),
            1332-1338 (http://www.sciencemag.org/content/350/6266/1332.short)
 
-    .. [2] Lake, B. M., Salakhutdinov, R., and Tenenbaum, J. B. (2019). The Omniglot 
+    .. [2] Lake, B. M., Salakhutdinov, R., and Tenenbaum, J. B. (2019). The Omniglot
            Challenge: A 3-Year Progress Report (https://arxiv.org/abs/1902.03477)
 
-    .. [3] Vinyals, O., Blundell, C., Lillicrap, T. and Wierstra, D. (2016). 
-           Matching Networks for One Shot Learning. In Advances in Neural 
+    .. [3] Vinyals, O., Blundell, C., Lillicrap, T. and Wierstra, D. (2016).
+           Matching Networks for One Shot Learning. In Advances in Neural
            Information Processing Systems (pp. 3630-3638) (https://arxiv.org/abs/1606.04080)
     """
     def __init__(self, root, num_classes_per_task=None, meta_train=False,
@@ -142,8 +142,6 @@ class OmniglotClassDataset(ClassDataset):
         if download:
             self.download()
 
-        if not self._check_integrity():
-            raise RuntimeError('Omniglot integrity check failed')
         self._num_classes = len(self.labels)
 
     def __getitem__(self, index):

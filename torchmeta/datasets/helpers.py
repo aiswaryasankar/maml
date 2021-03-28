@@ -1,7 +1,7 @@
 import warnings
 
 from torchmeta.datasets import (Omniglot, MiniImagenet, TieredImagenet, CIFARFS,
-                                FC100, CUB, DoubleMNIST, TripleMNIST, Pascal5i)
+                                FC100, CUB, DoubleMNIST, TripleMNIST, Pascal5i, Clinic)
 from torchmeta.transforms import Categorical, ClassSplitter, Rotation, SegmentationPairTransform
 from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor
 
@@ -13,7 +13,8 @@ __all__ = [
     'fc100',
     'cub',
     'doublemnist',
-    'triplemnist'
+    'triplemnist',
+    'clinic',
 ]
 
 def helper_with_default(klass, folder, shots, ways, shuffle=True,
@@ -82,6 +83,12 @@ def omniglot(folder, shots, ways, shuffle=True, test_shots=None,
     return helper_with_default(Omniglot, folder, shots, ways,
                                shuffle=shuffle, test_shots=test_shots,
                                seed=seed, defaults=defaults, **kwargs)
+
+def clinic(folder, shots, ways, shuffle=True):
+
+    return helper_with_default(Clinic, folder, shots, ways,
+                                shuffle=shuffle, test_shots=test_shots,
+                                seed=seed, defaults=defaults, **kwargs)
 
 def miniimagenet(folder, shots, ways, shuffle=True, test_shots=None,
                  seed=None, **kwargs):
@@ -344,19 +351,19 @@ def triplemnist(folder, shots, ways, shuffle=True, test_shots=None,
         Root directory where the dataset folder `triplemnist` exists.
 
     shots : int
-        Number of (training) examples per class in each task. This corresponds 
+        Number of (training) examples per class in each task. This corresponds
         to `k` in `k-shot` classification.
 
     ways : int
-        Number of classes per task. This corresponds to `N` in `N-way` 
+        Number of classes per task. This corresponds to `N` in `N-way`
         classification.
 
     shuffle : bool (default: `True`)
         Shuffle the examples when creating the tasks.
 
     test_shots : int, optional
-        Number of test examples per class in each task. If `None`, then the 
-        number of test examples is equal to the number of training examples per 
+        Number of test examples per class in each task. If `None`, then the
+        number of test examples is equal to the number of training examples per
         class.
 
     seed : int, optional

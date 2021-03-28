@@ -16,32 +16,32 @@ __all__ = ['ClassDataset', 'MetaDataset', 'CombinationMetaDataset']
 
 
 class ClassDataset(object):
-    """Base class for a dataset of classes. Each item from a `ClassDataset` is 
+    """Base class for a dataset of classes. Each item from a `ClassDataset` is
     a dataset containing examples from the same class.
 
     Parameters
     ----------
     meta_train : bool (default: `False`)
         Use the meta-train split of the dataset. If set to `True`, then the
-        arguments `meta_val` and `meta_test` must be set to `False`. Exactly one 
+        arguments `meta_val` and `meta_test` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_val : bool (default: `False`)
-        Use the meta-validation split of the dataset. If set to `True`, then the 
-        arguments `meta_train` and `meta_test` must be set to `False`. Exactly one 
+        Use the meta-validation split of the dataset. If set to `True`, then the
+        arguments `meta_train` and `meta_test` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_test : bool (default: `False`)
-        Use the meta-test split of the dataset. If set to `True`, then the 
-        arguments `meta_train` and `meta_val` must be set to `False`. Exactly one 
+        Use the meta-test split of the dataset. If set to `True`, then the
+        arguments `meta_train` and `meta_val` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_split : string in {'train', 'val', 'test'}, optional
-        Name of the split to use. This overrides the arguments `meta_train`, 
+        Name of the split to use. This overrides the arguments `meta_train`,
         `meta_val` and `meta_test`.
 
     class_augmentations : list of callable, optional
-        A list of functions that augment the dataset with new classes. These classes 
+        A list of functions that augment the dataset with new classes. These classes
         are transformations of existing classes. E.g. `transforms.HorizontalFlip()`.
     """
     def __init__(self, meta_train=False, meta_val=False, meta_test=False,
@@ -134,29 +134,29 @@ class MetaDataset(object):
     ----------
     meta_train : bool (default: `False`)
         Use the meta-train split of the dataset. If set to `True`, then the
-        arguments `meta_val` and `meta_test` must be set to `False`. Exactly one 
+        arguments `meta_val` and `meta_test` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_val : bool (default: `False`)
-        Use the meta-validation split of the dataset. If set to `True`, then the 
-        arguments `meta_train` and `meta_test` must be set to `False`. Exactly one 
+        Use the meta-validation split of the dataset. If set to `True`, then the
+        arguments `meta_train` and `meta_test` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_test : bool (default: `False`)
-        Use the meta-test split of the dataset. If set to `True`, then the 
-        arguments `meta_train` and `meta_val` must be set to `False`. Exactly one 
+        Use the meta-test split of the dataset. If set to `True`, then the
+        arguments `meta_train` and `meta_val` must be set to `False`. Exactly one
         of these three arguments must be set to `True`.
 
     meta_split : string in {'train', 'val', 'test'}, optional
-        Name of the split to use. This overrides the arguments `meta_train`, 
+        Name of the split to use. This overrides the arguments `meta_train`,
         `meta_val` and `meta_test`.
 
     target_transform : callable, optional
-        A function/transform that takes a target, and returns a transformed 
+        A function/transform that takes a target, and returns a transformed
         version. See also `torchvision.transforms`.
 
     dataset_transform : callable, optional
-        A function/transform that takes a dataset (ie. a task), and returns a 
+        A function/transform that takes a dataset (ie. a task), and returns a
         transformed version of it. E.g. `transforms.ClassSplitter()`.
     """
     def __init__(self, meta_train=False, meta_val=False, meta_test=False,
@@ -218,25 +218,25 @@ class MetaDataset(object):
 
 
 class CombinationMetaDataset(MetaDataset):
-    """Base class for a meta-dataset, where the classification tasks are over 
+    """Base class for a meta-dataset, where the classification tasks are over
     multiple classes from a `ClassDataset`.
 
     Parameters
     ----------
     dataset : `ClassDataset` instance
-        A dataset of classes. Each item of `dataset` is a dataset, containing 
+        A dataset of classes. Each item of `dataset` is a dataset, containing
         all the examples from the same class.
 
     num_classes_per_task : int
-        Number of classes per tasks. This corresponds to `N` in `N-way` 
+        Number of classes per tasks. This corresponds to `N` in `N-way`
         classification.
 
     target_transform : callable, optional
-        A function/transform that takes a target, and returns a transformed 
+        A function/transform that takes a target, and returns a transformed
         version. See also `torchvision.transforms`.
 
     dataset_transform : callable, optional
-        A function/transform that takes a dataset (ie. a task), and returns a 
+        A function/transform that takes a dataset (ie. a task), and returns a
         transformed version of it. E.g. `transforms.ClassSplitter()`.
     """
     def __init__(self, dataset, num_classes_per_task, target_transform=None,
@@ -248,7 +248,7 @@ class CombinationMetaDataset(MetaDataset):
         self.num_classes_per_task = num_classes_per_task
         # If no target_transform, then use a default target transform that
         # is well behaved for the `default_collate` function (assign class
-        # augmentations ot integers).
+        # augmentations to integers).
         if target_transform is None:
             target_transform = DefaultTargetTransform(dataset.class_augmentations)
 

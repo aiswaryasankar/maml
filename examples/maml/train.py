@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from tqdm import tqdm
 import logging
 
-from torchmeta.datasets.helpers import omniglot
+from torchmeta.datasets.helpers import clinic
 from torchmeta.utils.data import BatchMetaDataLoader
 from torchmeta.utils.gradient_based import gradient_update_parameters
 
@@ -23,8 +23,7 @@ def train(args):
                    'different datasets), please check `https://github.com/'
                    'tristandeleu/pytorch-maml`.')
 
-    dataset = omniglot(args.folder,
-                       shots=args.num_shots,
+    dataset = clinic(shots=args.num_shots,
                        ways=args.num_ways,
                        shuffle=True,
                        test_shots=15,
