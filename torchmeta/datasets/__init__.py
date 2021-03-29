@@ -12,9 +12,9 @@ from torchmeta.datasets.pascal5i import Pascal5i
 from torchmeta.datasets import helpers
 
 __all__ = [
+    'Clinic',
     'TCGA',
     'Omniglot',
-    'Clinic',
     'MiniImagenet',
     'TieredImagenet',
     'CIFARFS',

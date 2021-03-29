@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from tqdm import tqdm
 import logging
 
-from torchmeta.datasets.helpers import clinic
+from torchmeta.datasets.helpers import clinic, omniglot
 from torchmeta.utils.data import BatchMetaDataLoader
 from torchmeta.utils.gradient_based import gradient_update_parameters
 
@@ -15,13 +15,6 @@ logger = logging.getLogger(__name__)
 
 
 def train(args):
-    logger.warning('This script is an example to showcase the MetaModule and '
-                   'data-loading features of Torchmeta, and as such has been '
-                   'very lightly tested. For a better tested implementation of '
-                   'Model-Agnostic Meta-Learning (MAML) using Torchmeta with '
-                   'more features (including multi-step adaptation and '
-                   'different datasets), please check `https://github.com/'
-                   'tristandeleu/pytorch-maml`.')
 
     dataset = clinic(shots=args.num_shots,
                        ways=args.num_ways,

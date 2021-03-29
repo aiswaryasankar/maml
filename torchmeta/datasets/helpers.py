@@ -1,11 +1,13 @@
 import warnings
 
+from torchmeta.datasets import *
 from torchmeta.datasets import (Omniglot, MiniImagenet, TieredImagenet, CIFARFS,
                                 FC100, CUB, DoubleMNIST, TripleMNIST, Pascal5i, Clinic)
 from torchmeta.transforms import Categorical, ClassSplitter, Rotation, SegmentationPairTransform
 from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor
 
 __all__ = [
+    'clinic',
     'omniglot',
     'miniimagenet',
     'tieredimagenet',
@@ -14,7 +16,6 @@ __all__ = [
     'cub',
     'doublemnist',
     'triplemnist',
-    'clinic',
 ]
 
 def helper_with_default(klass, folder, shots, ways, shuffle=True,
@@ -80,6 +81,7 @@ def omniglot(folder, shots, ways, shuffle=True, test_shots=None,
         'class_augmentations': [Rotation([90, 180, 270])]
     }
 
+    print("INSIDE OMNIGLOT IN HELPERS")
     return helper_with_default(Omniglot, folder, shots, ways,
                                shuffle=shuffle, test_shots=test_shots,
                                seed=seed, defaults=defaults, **kwargs)
